@@ -15,8 +15,8 @@ service:
                             connectorRef: harnessgitconnector
                             gitFetchType: Branch
                             paths:
-                                - guestbook/guestbook-ui-deployment.yaml
-                                - guestbook/guestbook-ui-svc.yaml
+                                - k8s-manifests/guestbook-ui-deployment.yaml
+                                - k8s-manifests/guestbook-ui-svc.yaml
                             branch: main
                         skipResourceVersioning: false
                         enableDeclarativeRollback: false
