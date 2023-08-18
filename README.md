@@ -162,17 +162,9 @@ In Harness, services represent what you deploy to environments. You use services
 - Select **Edit YAML**, copy the contents of [service.yml](harnesscd-pipeline/service.yml), and paste the into the YAML editor.
 - Select **Save**, and verify that the service **harness_guestbook** is successfully created.
 
+If you observe the [guestbook-ui-deployment.yaml file](k8s-manifests/templates/guestbook-ui-deployment.yaml), you'll see that the container image tag is templated to come from a [values.yml file](k8s-manifests/values.yml). We have not configured the variable in Harness pipeline yet to pass this value during pipeline runtime. For now, replace the image tag on [values.yml](k8s-manifests/values.yml) from `<+pipeline.variables.imageTag>` to `v0.1-dev` (it can be any other tag you choose).
+
 ## Configuring and running Harness pipeline
-
-### Variables
-
-<details>
-<summary>What are Harness variables?</summary>
-<br>
-Harness variables are a way to refer to something in Harness, such as an entity name or a configuration setting. At pipeline runtime, Harness evaluates all variable expressions and replaces them with the resulting value. To learn more about Harness variables, go to <a href=https://developer.harness.io/docs/platform/variables-and-expressions/harness-variables/>Built-in and custom Harness variables reference</a>.
-</details>
-
-Let's learn how to use Harness variable to pass image tag value during pipeline runtime.
 
 ### Pipeline
 
@@ -263,3 +255,25 @@ docker push DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
 
 > [!NOTE]  
 > If you want to trigger on all artifacts collected during polling interval, you'll need to toggle the feature flag `TRIGGER_FOR_ALL_ARTIFACTS`. More details [here](https://developer.harness.io/docs/first-gen/continuous-delivery/model-cd-pipeline/triggers/trigger-a-deployment-on-new-artifact/#all-artifacts-trigger-deployment).
+
+### Variables
+
+<details>
+<summary>What are Harness variables?</summary>
+<br>
+Harness variables are a way to refer to something in Harness, such as an entity name or a configuration setting. At pipeline runtime, Harness evaluates all variable expressions and replaces them with the resulting value. To learn more about Harness variables, go to <a href=https://developer.harness.io/docs/platform/variables-and-expressions/harness-variables/>Built-in and custom Harness variables reference</a>.
+</details>
+
+Let's learn how to use Harness variable to pass image tag value during pipeline runtime.
+
+1. From **Pipeline Studio** under `guestbook_canary_pipeline`, select **Variables**.
+2. Click **+ Add Variable** under the **Pipeline** section. Read more on [Variable scope](https://developer.harness.io/docs/platform/variables-and-expressions/harness-variables/#scope).
+3. Leave the variable type as `String`, set the variable name `imageTag` and enter a value for the image tag. This is the same tag you used previously when pushing the docker image. If you've used the same naming convention I suggested, this value will be `v0.1-dev`.
+4. Click **Save**.
+5. If you hover over the newly created variable, you'll see a copy icon that'll let you reference this variable anywhere in the pipeline/stage.
+6. Revert the change you previously made under [values.yml](k8s-manifests/values.yml) and switch the value for image tag to `<+pipeline.variables.imageTag>`.
+
+For any subsequent pipeline triggers, the image tag will be dynamically passed rather than hardcoded value.
+
+> [!NOTE]  
+> Ensure that an image with the specified dynamic image tag exists on your container image repository.
