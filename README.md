@@ -252,4 +252,4 @@ docker push DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
 ```
 
 > [!NOTE]  
-> If you want to trigger on all artifacts collected during polling interval, you'll need to toggle the feature flag `TRIGGER_FOR_ALL_ARTIFACTS`. More details [here].
+> If you want to trigger on all artifacts collected during polling interval, you'll need to toggle the feature flag `TRIGGER_FOR_ALL_ARTIFACTS`. More details [here](https://developer.harness.io/docs/first-gen/continuous-delivery/model-cd-pipeline/triggers/trigger-a-deployment-on-new-artifact/#all-artifacts-trigger-deployment).
