@@ -101,7 +101,7 @@ In your Harness project in the Harness Manager, under **Project Setup**, select 
 
 1. Create the **GitHub connector**.
 
-   - Copy the contents of [github-connector.yml](harnesscd-pipeline/gitub-connector.yml).
+   - Copy the contents of [github-connector.yml](harnesscd-pipeline/github-connector.yml).
    - Click **New Connector** under **Connectors**.
    - Select **Create via YAML Builder** and paste the copied YAML.
    - Assuming you have already forked this repository, replace `GITHUB_USERNAME` with your GitHub account username in the YAML.
