@@ -1,0 +1,16 @@
+trigger:
+  name: trigger_on_docker_push
+  identifier: trigger_on_docker_push
+  enabled: true
+  tags: {}
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipelineIdentifier: guestbook_canary_pipeline
+  stagesToExecute: []
+  source:
+    type: Artifact
+    spec:
+      type: DockerRegistry
+      spec:
+        connectorRef: harness_docker_connector
+        imagePath: DOCKER_USERNAME/DOCKER_REPOSITORY

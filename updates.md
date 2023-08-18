@@ -7,3 +7,5 @@
 7. GitHub branch ~master~ to main.
 8. Why do I need to go to home page of developer.harness.io for search?
 9. Visual pipeline name should match. ~harness_guestbook_pipeline~ `guestbook_canary_pipeline`.
+10. Zoom in on the pipeline for the image.
+11. Add Harness key concepts as a pre-req.

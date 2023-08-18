@@ -14,6 +14,7 @@ In order to follow this tutorial, you need some prerequisites.
 4. Have a self-hosted or managed Kubernetes cluster. We recommend [k3d](https://k3d.io/) for installing Harness Delegates and deploying a sample application in a local development environment. Read more about [Harness delegate](https://developer.harness.io/docs/platform/delegates/delegate-concepts/delegate-overview/) and [delegate system requirements](https://developer.harness.io/docs/platform/Delegates/delegate-concepts/delegate-requirements).
 5. [Sign up for a docker hub account](https://hub.docker.com/) to be able to push and manage container images. You can use any other image registry. For this tutorial, we'll be using docker hub.
 6. Install the [Helm CLI](https://helm.sh/docs/intro/install/) in order to install the Harness Helm delegate.
+7. Please familiarize yourself with [Harness key concepts](https://developer.harness.io/docs/getting-started/learn-harness-key-concepts).
 
 > [!WARNING]  
 > For the pipeline to run successfully, please follow the remaining steps as they are, including the naming conventions.
@@ -188,3 +189,66 @@ There are various deployment concepts and strategies when it comes to deploying 
 You can switch to the **Visual** editor and confirm the pipeline stage and execution steps as shown below.
 
 ![Canary pipeline in visual editor](assets/images/pipeline-visual.png)
+
+Now it's time to execute your pipeline.
+
+1. Select **Run**, and then select **Run Pipeline** to initiate the deployment.
+
+   - Observe the execution logs as Harness deploys the workload and checks for steady state.
+
+   - After a successful execution, you can check the deployment on your Kubernetes cluster using the following command:
+
+   ```shell
+   kubectl get pods -n default
+   ```
+
+   - To access the Guestbook application deployed by the Harness pipeline, port forward the service and access it at http://localhost:8080
+
+   ```shell
+   kubectl port-forward svc/guestbook-ui 8080:80
+   ```
+
+But... this is manual execution of our CD pipeline. Let's try to automate this using triggers.
+
+### Triggers
+
+<details>
+<summary>What are Harness triggers?</summary>
+<br>
+A trigger is typically an event or condition that initiates or starts a specific workflow or process. For instance, a trigger in the Harness platform might kick off a pipeline execution when a new artifact is detected in a repository or when a new Docker image is pushed to a registry. To learn more about triggers, go to <a href=https://developer.harness.io/docs/category/triggers/>Triggers overview</a>.
+</details>
+
+In this tutorial, we'll configure the CD pipeline so that it's triggered every time there's a docker image pushed to a specific docker hub image repository.
+
+1. In **Default Project**, select **Pipelines** and then select **guestbook_canary_pipeline**.
+2. Select **Triggers** and then click **New trigger**.
+3. Choose **Docker Registry** under **Artifact** and toggle to **YAML** to use the YAML editor.
+4. Copy the contents of [docker-trigger.yml](harnesscd-pipeline/docker-trigger.yml), and paste it in the editor.
+5. Be sure to replace `DOCKER_USERNAME` with your docker hub username and `DOCKER_REPOSITORY` with a repository name of your choice. It's ok if this repository does not exist yet.
+6. Select **Save**.
+
+Now you'll need to push an image to your docker hub image repository to trigger the Harness CD pipeline.
+
+Let's use an existing image for the guestbook application.
+
+    - Pull down the public image for the guestbook application.
+
+    ```shell
+    docker pull gcr.io/heptio-images/ks-guestbook-demo:0.1
+    ```
+
+    - Tag it with your docker hub username and repository name.
+
+    ```shell
+    docker tag gcr.io/heptio-images/ks-guestbook-demo:0.1 DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
+    ```
+    Make sure to substitute `DOCKER_USERNAME`, `DOCKER_REPOSITORY`, and `TAG` in the above and following commands. For example, I tagged the image as `dewandemo/guestbook:v0.1-dev`.
+
+    - Push the image.
+
+    ```shell
+    docker push DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
+    ```
+
+> [!TROUBLESHOOTING]  
+> If you want to trigger on all artifacts collected during polling interval, you'll need to toggle the feature flag `TRIGGER_FOR_ALL_ARTIFACTS`. More details [here].
