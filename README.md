@@ -22,8 +22,42 @@ In order to follow this tutorial, you need some prerequisites.
 1. Log in to [Harness](https://app.harness.io/).
 2. You might already be under **Default Project**. If not, switch to **Default Project** from **Projects** section.
 
+### Delegate installation
+
 <details>
 <summary>What is the Harness delegate?</summary>
 <br>
 The Harness delegate is a service that runs in your local network or VPC to establish connections between the Harness Manager and various providers such as artifacts registries, cloud platforms, etc. The delegate is installed in the target infrastructure, for example, a Kubernetes cluster, and performs operations including deployment and integration. Learn more about the delegate in the <a href=https://developer.harness.io/docs/platform/delegates/delegate-concepts/delegate-overview>Delegate overview</a>.
 </details>
+
+Under **Project Setup**, select **Delegates**. If there's no existing delegate, you can select **Install a delegate**. For subsequent ones, choose **New Delegate**.
+
+For this tutorial, let's explore how to install a delegate using Helm.
+
+> [!NOTE]  
+> Ensure you're connected to a Kubernetes cluster before running the commands below.
+
+1. Add the Harness Helm chart repo to your local helm registry using the following commands.
+
+```shell
+helm repo add harness-delegate https://app.harness.io/storage/harness-download/delegate-helm-chart/
+```
+
+2. Update the repo:
+
+```shell
+helm repo update harness-delegate
+```
+
+3. In the following example command, ACCOUNT_ID and MANAGER_ENDPOINT are auto-populated values that you can obtain from the delegate installation wizard. Be sure to use the latest `delegateDockerImage` value which can also be found from the delegate installation wizard.
+
+```shell
+helm upgrade -i helm-delegate --namespace harness-delegate-ng --create-namespace \
+harness-delegate/harness-delegate-ng \
+ --set delegateName=helm-delegate \
+ --set accountId=ACCOUNT_ID \
+ --set managerEndpoint=MANAGER_ENDPOINT \
+ --set delegateDockerImage=harness/delegate:23.03.78904 \
+ --set replicas=1 --set upgrader.enabled=false \
+ --set delegateToken=DELEGATE_TOKEN
+```
