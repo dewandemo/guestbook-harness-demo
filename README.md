@@ -138,9 +138,9 @@ Environments define the deployment location, categorized as Production or Pre-Pr
 
 1. In your Harness project, select **Environments**.
 
-- Select **New Environment**, and then select **YAML**.
-- Copy the contents of [environment.yml](harnesscd-pipeline/environment.yml), paste it into the YAML editor, and select **Save**.
-- In your new environment, select the **Infrastructure Definitions** tab.
-- Select **Infrastructure Definition**, and then select **YAML**.
-- Copy the contents of [infrastructure-definition.yml](harnesscd-pipeline/infrastructure-definition.yml) and paste it into the YAML editor.
-- Select **Save** and verify that the environment and infrastructure definition are created successfully.
+   - Select **New Environment**, and then select **YAML**.
+   - Copy the contents of [environment.yml](harnesscd-pipeline/environment.yml), paste it into the YAML editor, and select **Save**.
+   - In your new environment, select the **Infrastructure Definitions** tab.
+   - Select **Infrastructure Definition**, and then select **YAML**.
+   - Copy the contents of [infrastructure-definition.yml](harnesscd-pipeline/infrastructure-definition.yml) and paste it into the YAML editor.
+   - Select **Save** and verify that the environment and infrastructure definition are created successfully.
