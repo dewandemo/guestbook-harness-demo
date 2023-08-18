@@ -164,6 +164,16 @@ In Harness, services represent what you deploy to environments. You use services
 
 ## Configuring and running Harness pipeline
 
+### Variables
+
+<details>
+<summary>What are Harness variables?</summary>
+<br>
+Harness variables are a way to refer to something in Harness, such as an entity name or a configuration setting. At pipeline runtime, Harness evaluates all variable expressions and replaces them with the resulting value. To learn more about Harness variables, go to <a href=https://developer.harness.io/docs/platform/variables-and-expressions/harness-variables/>Built-in and custom Harness variables reference</a>.
+</details>
+
+Let's learn how to use Harness variable to pass image tag value during pipeline runtime.
+
 ### Pipeline
 
 <details>

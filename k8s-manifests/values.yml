@@ -1,3 +1,2 @@
 image:
-  tag: <+pipeline.stages.mockbuildguestbook.variables.imageTag>
-# tag: 0.25-dev-rolling
+  tag: <+pipeline.variables.imageTag>
