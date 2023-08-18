@@ -231,24 +231,25 @@ Now you'll need to push an image to your docker hub image repository to trigger 
 
 Let's use an existing image for the guestbook application.
 
-    - Pull down the public image for the guestbook application.
+- Pull down the public image for the guestbook application.
 
-    ```shell
-    docker pull gcr.io/heptio-images/ks-guestbook-demo:0.1
-    ```
+```shell
+docker pull gcr.io/heptio-images/ks-guestbook-demo:0.1
+```
 
-    - Tag it with your docker hub username and repository name.
+- Tag it with your docker hub username and repository name.
 
-    ```shell
-    docker tag gcr.io/heptio-images/ks-guestbook-demo:0.1 DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
-    ```
-    Make sure to substitute `DOCKER_USERNAME`, `DOCKER_REPOSITORY`, and `TAG` in the above and following commands. For example, I tagged the image as `dewandemo/guestbook:v0.1-dev`.
+```shell
+docker tag gcr.io/heptio-images/ks-guestbook-demo:0.1 DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
+```
 
-    - Push the image.
+Make sure to substitute `DOCKER_USERNAME`, `DOCKER_REPOSITORY`, and `TAG` in the above and following commands. For example, I tagged the image as `dewandemo/guestbook:v0.1-dev`.
 
-    ```shell
-    docker push DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
-    ```
+- Push the image.
+
+```shell
+docker push DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
+```
 
 > [!TROUBLESHOOTING]  
 > If you want to trigger on all artifacts collected during polling interval, you'll need to toggle the feature flag `TRIGGER_FOR_ALL_ARTIFACTS`. More details [here].
