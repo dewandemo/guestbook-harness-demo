@@ -109,12 +109,21 @@ In your Harness project in the Harness Manager, under **Project Setup**, select 
    - Select **Save Changes** and verify that the new connector named **harness_gitconnector** is successfully created.
    - Finally, select **Connection Test** under **Connectivity Status** to ensure the connection is successful.
 
-2. ## Create the **Docker connector**.
+2. Create the **Docker connector**.
 
    - Copy the contents of [docker-connector.yml](harnesscd-pipeline/docker-connector.yml).
    - Click **New Connector** under **Connectors**.
    - Select **Create via YAML Builder** and paste the copied YAML.
    - Replace `username` with your Docker Hub username in the YAML.
+   - Replace `YOUR_ACCOUNT_ID` with your Harness account ID. You can obtain your Harness account ID from the URL in your browser when you are logged into Harness `https://app.harness.io/ng/account/<YOUR_ACCOUNT_ID>`.
    - In `projectIdentifier`, verify that the project identifier is correct. You can see the Id in the browser URL (after `account`). If it is incorrect, the Harness YAML editor will suggest the correct Id.
    - Select **Save Changes** and verify that the new connector named **harness_docker_connector** is successfully created.
    - Finally, select **Connection Test** under **Connectivity Status** to ensure the connection is successful.
+
+3. Create the **Kubernetes connector**.
+   - Copy the contents of [kubernetes-connector.yml](harnesscd-pipeline/kubernetes-connector.yml).
+   - Click **New Connector** under **Connectors**.
+   - Select **Create via YAML Builder** and and paste the copied YAML.
+   - Replace **DELEGATE_NAME** with the installed Delegate name. To obtain the Delegate name, navigate to **Project Setup**, and then **Delegates**.
+   - Select **Save Changes** and verify that the new connector named **harness_k8sconnector** is successfully created.
+   - Finally, select **Connection Test** under **Connectivity Status** to verify the connection is successful.

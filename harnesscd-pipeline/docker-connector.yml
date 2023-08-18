@@ -1,7 +1,7 @@
 connector:
   name: harness_docker_connector
   identifier: harness_docker_connector
-  accountIdentifier: XYnm2PBWQlOpwS5SwB3tsg
+  accountIdentifier: YOUR_ACCOUNT_ID
   orgIdentifier: default
   projectIdentifier: default_project
   type: DockerRegistry
