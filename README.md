@@ -8,11 +8,12 @@ This tutorial assumes that the reader has foundational knowledge of Kubernetes a
 
 In order to follow this tutorial, you need some prerequisites.
 
-1. [Sign up for free on Harness platform](https://app.harness.io/auth/#/signup/?module=cd&utm_source=github&utm_medium=github-tutorial&utm_campaign=dewan-devrel).
-2. Create a GitHub personal access token with the repo scope. [Fine-grained personal access token (in beta at the time of writing this tutorial)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) allows you many advantages over the [classic personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Be sure to save the token after creating it since you won't be able to see it again.
-3. Have a self-hosted or managed Kubernetes cluster. We recommend [k3d](https://k3d.io/) for installing Harness Delegates and deploying a sample application in a local development environment. Read more about [Harness delegate](https://developer.harness.io/docs/platform/delegates/delegate-concepts/delegate-overview/) and [delegate system requirements](https://developer.harness.io/docs/platform/Delegates/delegate-concepts/delegate-requirements).
-4. [Sign up for a docker hub account](https://hub.docker.com/) to be able to push and manage container images. You can use any other image registry. For this tutorial, we'll be using docker hub.
-5. Install the [Helm CLI](https://helm.sh/docs/intro/install/) in order to install the Harness Helm delegate.
+1. [Fork this repository](https://github.com/dewandemo/guestbook-harness-demo/fork).
+2. [Sign up for free on Harness platform](https://app.harness.io/auth/#/signup/?module=cd&utm_source=github&utm_medium=github-tutorial&utm_campaign=dewan-devrel).
+3. Create a GitHub personal access token with the repo scope. [Fine-grained personal access token (in beta at the time of writing this tutorial)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) allows you many advantages over the [classic personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Be sure to save the token after creating it since you won't be able to see it again.
+4. Have a self-hosted or managed Kubernetes cluster. We recommend [k3d](https://k3d.io/) for installing Harness Delegates and deploying a sample application in a local development environment. Read more about [Harness delegate](https://developer.harness.io/docs/platform/delegates/delegate-concepts/delegate-overview/) and [delegate system requirements](https://developer.harness.io/docs/platform/Delegates/delegate-concepts/delegate-requirements).
+5. [Sign up for a docker hub account](https://hub.docker.com/) to be able to push and manage container images. You can use any other image registry. For this tutorial, we'll be using docker hub.
+6. Install the [Helm CLI](https://helm.sh/docs/intro/install/) in order to install the Harness Helm delegate.
 
 > [!WARNING]  
 > For the pipeline to run successfully, please follow the remaining steps as they are, including the naming conventions.
@@ -61,3 +62,37 @@ harness-delegate/harness-delegate-ng \
  --set replicas=1 --set upgrader.enabled=false \
  --set delegateToken=DELEGATE_TOKEN
 ```
+
+4. Select **Verify** to verify that the delegate is installed successfully and can connect to the Harness Manager.
+
+### Secrets
+
+<details>
+<summary>What are Harness secrets?</summary>
+<br>
+Harness offers built-in secret management for encrypted storage of sensitive information. Secrets are decrypted when needed, and only the private network-connected Harness delegate has access to the key management system. You can also integrate your own secret manager. To learn more about secrets in Harness, go to <a href=https://developer.harness.io/docs/platform/Secrets/Secrets-Management/harness-secret-manager-overview/>Harness Secret Manager Overview</a>.
+</details>
+
+1. Under **Project Setup**, select **Secrets**.
+
+- Select **New Secret**, and then select **Text**.
+- Enter the secret name `harness_gitpat``.
+- For the secret value, paste the GitHub personal access token you saved earlier.
+- Select **Save**.
+
+### Connectors
+
+<details>
+<summary>What are connectors?</summary>
+<br>
+Connectors in Harness enable integration with 3rd party tools, providing authentication and operations during pipeline runtime. For instance, a GitHub connector facilitates authentication and fetching files from a GitHub repository within pipeline stages. Explore connector how-tos <a href=https://developer.harness.io/docs/category/connectors/>here</a>.
+</details>
+
+1. Create the **GitHub connector**.
+   - Copy the contents of [github-connector.yml](harnesscd-pipeline/gitub-connector.yml).
+   - In your Harness project in the Harness Manager, under **Project Setup**, select **Connectors**.
+   - Select **Create via YAML Builder** and paste the copied YAML.
+   - Assuming you have already forked this repository, replace GITHUB_USERNAME with your GitHub account username in the YAML.
+   - In `projectIdentifier`, verify that the project identifier is correct. You can see the Id in the browser URL (after `account`). If it is incorrect, the Harness YAML editor will suggest the correct Id.
+   - Select **Save Changes** and verify that the new connector named **harness_gitconnector** is successfully created.
+   - Finally, select **Connection Test** under **Connectivity Status** to ensure the connection is successful.
