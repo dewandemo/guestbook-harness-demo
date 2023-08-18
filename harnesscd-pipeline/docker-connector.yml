@@ -1,0 +1,16 @@
+connector:
+  name: harness_docker_connector
+  identifier: harness_docker_connector
+  accountIdentifier: XYnm2PBWQlOpwS5SwB3tsg
+  orgIdentifier: default
+  projectIdentifier: default_project
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: https://index.docker.io/v2/
+    providerType: DockerHub
+    auth:
+      type: UsernamePassword
+      spec:
+        username: dewandemo
+        passwordRef: docker_secret
+    executeOnDelegate: false

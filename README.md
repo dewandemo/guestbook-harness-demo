@@ -73,11 +73,20 @@ harness-delegate/harness-delegate-ng \
 Harness offers built-in secret management for encrypted storage of sensitive information. Secrets are decrypted when needed, and only the private network-connected Harness delegate has access to the key management system. You can also integrate your own secret manager. To learn more about secrets in Harness, go to <a href=https://developer.harness.io/docs/platform/Secrets/Secrets-Management/harness-secret-manager-overview/>Harness Secret Manager Overview</a>.
 </details>
 
-1. Under **Project Setup**, select **Secrets**.
+Under **Project Setup**, select **Secrets**.
+
+1. Create Harness secret for GitHub.
 
 - Select **New Secret**, and then select **Text**.
-- Enter the secret name `harness_gitpat``.
+- Enter the secret name `harness_gitpat`.
 - For the secret value, paste the GitHub personal access token you saved earlier.
+- Select **Save**.
+
+2. Create Harness secret for Docker Hub.
+
+- Select **New Secret**, and then select **Text**.
+- Enter the secret name `docker_secret`.
+- For the secret value, either use your docker hub password or [access token](https://docs.docker.com/docker-hub/access-tokens/) (recommended).
 - Select **Save**.
 
 ### Connectors
@@ -88,11 +97,24 @@ Harness offers built-in secret management for encrypted storage of sensitive inf
 Connectors in Harness enable integration with 3rd party tools, providing authentication and operations during pipeline runtime. For instance, a GitHub connector facilitates authentication and fetching files from a GitHub repository within pipeline stages. Explore connector how-tos <a href=https://developer.harness.io/docs/category/connectors/>here</a>.
 </details>
 
+In your Harness project in the Harness Manager, under **Project Setup**, select **Connectors**.
+
 1. Create the **GitHub connector**.
+
    - Copy the contents of [github-connector.yml](harnesscd-pipeline/gitub-connector.yml).
-   - In your Harness project in the Harness Manager, under **Project Setup**, select **Connectors**.
+   - Click **New Connector** under **Connectors**.
    - Select **Create via YAML Builder** and paste the copied YAML.
-   - Assuming you have already forked this repository, replace GITHUB_USERNAME with your GitHub account username in the YAML.
+   - Assuming you have already forked this repository, replace `GITHUB_USERNAME` with your GitHub account username in the YAML.
    - In `projectIdentifier`, verify that the project identifier is correct. You can see the Id in the browser URL (after `account`). If it is incorrect, the Harness YAML editor will suggest the correct Id.
    - Select **Save Changes** and verify that the new connector named **harness_gitconnector** is successfully created.
+   - Finally, select **Connection Test** under **Connectivity Status** to ensure the connection is successful.
+
+2. ## Create the **Docker connector**.
+
+   - Copy the contents of [docker-connector.yml](harnesscd-pipeline/docker-connector.yml).
+   - Click **New Connector** under **Connectors**.
+   - Select **Create via YAML Builder** and paste the copied YAML.
+   - Replace `username` with your Docker Hub username in the YAML.
+   - In `projectIdentifier`, verify that the project identifier is correct. You can see the Id in the browser URL (after `account`). If it is incorrect, the Harness YAML editor will suggest the correct Id.
+   - Select **Save Changes** and verify that the new connector named **harness_docker_connector** is successfully created.
    - Finally, select **Connection Test** under **Connectivity Status** to ensure the connection is successful.
