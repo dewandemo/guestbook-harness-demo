@@ -271,6 +271,7 @@ Let's learn how to use Harness variable to pass image tag value during pipeline 
 3. Leave the variable type as `String`, set the variable name `imageTag` and enter a value for the image tag. This is the same tag you used previously when pushing the docker image. If you've used the same naming convention I suggested, this value will be `v0.1-dev`.
 4. Click **Save**.
 5. If you hover over the newly created variable, you'll see a copy icon that'll let you reference this variable anywhere in the pipeline/stage.
+   ![imageTag variable copy option](assets/images/imageTag.png)
 6. Revert the change you previously made under [values.yml](k8s-manifests/values.yml) and switch the value for image tag to `<+pipeline.variables.imageTag>`.
 
 For any subsequent pipeline triggers, the image tag will be dynamically passed rather than hardcoded value.
