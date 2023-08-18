@@ -127,3 +127,19 @@ In your Harness project in the Harness Manager, under **Project Setup**, select 
    - Replace **DELEGATE_NAME** with the installed Delegate name. To obtain the Delegate name, navigate to **Project Setup**, and then **Delegates**.
    - Select **Save Changes** and verify that the new connector named **harness_k8sconnector** is successfully created.
    - Finally, select **Connection Test** under **Connectivity Status** to verify the connection is successful.
+
+### Environment
+
+<details>
+<summary>What are Harness environments?</summary>
+<br>
+Environments define the deployment location, categorized as Production or Pre-Production. Each environment includes infrastructure definitions for VMs, Kubernetes clusters, or other target infrastructures. To learn more about environments, go to <a href=https://developer.harness.io/docs/continuous-delivery/x-platform-cd-features/environments/environment-overview/>Environments overview</a>.
+</details>
+
+1. In your Harness project, select **Environments**.
+   Select **New Environment**, and then select **YAML**.
+   Copy the contents of [environment.yml](harnesscd-pipeline/environment.yml), paste it into the YAML editor, and select **Save**.
+   In your new environment, select the **Infrastructure Definitions** tab.
+   Select **Infrastructure Definition**, and then select **YAML**.
+   Copy the contents of [infrastructure-definition.yml](harnesscd-pipeline/infrastructure-definition.yml) and paste it into the YAML editor.
+   Select **Save** and verify that the environment and infrastructure definition are created successfully.
