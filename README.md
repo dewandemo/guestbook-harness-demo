@@ -251,5 +251,5 @@ Make sure to substitute `DOCKER_USERNAME`, `DOCKER_REPOSITORY`, and `TAG` in the
 docker push DOCKER_USERNAME/DOCKER_REPOSITORY:TAG
 ```
 
-> [!TROUBLESHOOTING]  
+> [!NOTE]  
 > If you want to trigger on all artifacts collected during polling interval, you'll need to toggle the feature flag `TRIGGER_FOR_ALL_ARTIFACTS`. More details [here].
