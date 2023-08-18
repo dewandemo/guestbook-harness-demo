@@ -144,3 +144,47 @@ Environments define the deployment location, categorized as Production or Pre-Pr
    - Select **Infrastructure Definition**, and then select **YAML**.
    - Copy the contents of [infrastructure-definition.yml](harnesscd-pipeline/infrastructure-definition.yml) and paste it into the YAML editor.
    - Select **Save** and verify that the environment and infrastructure definition are created successfully.
+
+### Services
+
+<details>
+<summary>What are Harness services?</summary>
+<br>
+In Harness, services represent what you deploy to environments. You use services to configure variables, manifests, and artifacts. The Services dashboard provides service statistics like deployment frequency and failure rate. To learn more about services, go to <a href=https://developer.harness.io/docs/continuous-delivery/x-platform-cd-features/services/services-overview/>Services overview</a>.
+</details>
+
+1. In your Harness project, select **Services**.
+
+- Select **New Service**.
+- Enter the name `harnessguestbook`.
+- Select **Save**, and then **YAML** (on the **Configuration** tab).
+- Select **Edit YAML**, copy the contents of [service.yml](harnesscd-pipeline/service.yml), and paste the into the YAML editor.
+- Select **Save**, and verify that the service **harness_guestbook** is successfully created.
+
+## Configuring and running Harness pipeline
+
+### Pipeline
+
+<details>
+<summary>What are Harness pipelines?</summary>
+<br>
+A pipeline is a comprehensive process encompassing integration, delivery, operations, testing, deployment, and monitoring. It can utilize CI for code building and testing, followed by CD for artifact deployment in production. A CD Pipeline is a series of stages where each stage deploys a service to an environment. To learn more about CD pipeline basics, go to <a href=https://developer.harness.io/docs/continuous-delivery/get-started/cd-pipeline-basics/>Pipeline basics</a>.
+</details>
+
+There are various deployment concepts and strategies when it comes to deploying code and applications into production. In this tutorial, we'll be using Canary deployments. A canary deployment updates nodes in a single environment gradually, allowing you to use gates between increments. Canary deployments allow incremental updates and ensure a controlled rollout process. To learn more about other deployment strategies, go to [Deployment concepts and strategies](https://developer.harness.io/docs/continuous-delivery/manage-deployments/deployment-concepts).
+
+1. In **Default Project**, select **Pipelines**.
+
+   - Select **New Pipeline**.
+   - Enter the name `guestbook_canary_pipeline`.
+   - Select **Inline** to store the pipeline in Harness.
+   - Select **Start** and, in the Pipeline Studio, toggle to **YAML** to use the YAML editor.
+   - Select **Edit YAML** to enable edit mode, and choose any of the following execution strategies. Paste the respective YAML based on your selection.
+
+2. Copy the contents of [canary-pipeline.yml](harnesscd-pipeline/canary-pipeline.yml).
+3. In your Harness pipeline YAML editor, paste the YAML.
+4. Select **Save**.
+
+You can switch to the **Visual** editor and confirm the pipeline stage and execution steps as shown below.
+
+![Canary pipeline in visual editor](assets/images/pipeline-visual.png)
